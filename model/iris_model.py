@@ -5,13 +5,13 @@ from model.perceptron import Perceptron
 
 class IrisModel:
     def __init__(self):
-        df = pd.read_csv('https://archive.ics.uci.edu/ml/'
+        self.iris = pd.read_csv('https://archive.ics.uci.edu/ml/'
         'machine-learning-databases/iris/iris.data', header=None)
-        print(df.head())
+        print(self.iris.head())
         print('-' * 50)
-        print(df.tail)   
+        print(self.iris.tail)   
         print('-' * 50)
-        print(df.columns)
+        print(self.iris.columns)
         '''
         [150 rows x 5 columns]>
         --------------------------------------------------
@@ -22,7 +22,7 @@ class IrisModel:
         t = self.iris.iloc[0:100, 4].values
         self.y = np.where(t == 'Iris-setosa', -1, 1)
         # 꽃받침 길이, 꽃잎 추출
-        self.x = self.iris.iloc[0:100, [0,2]].values
+        self.X = self.iris.iloc[0:100, [0,2]].values
         self.clf = Perceptron(eta = 0.1, n_iter=10)
     
     def get_iris(self):
