@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from util.file_helper import FileReader
-basedir = os.path.dirname(os.path.abspath(__file__))
+baseurl = os.path.dirname(os.path.abspath(__file__))
 import pandas as pd
 
 # class Crime:
@@ -30,19 +30,20 @@ import pandas as pd
 
 class CrimeModel:
     def __init__(self):
-        print(f'baseurl #### {basedir}')
+        print(f'baseurl #### {baseurl}')
         self.reader = FileReader()
 
     def hook_process(self):
         print('----------- CRIME & POLICE ----------')
         crime = self.get_crime()
-        print(f'{crime.head()}')
-        self.get_station(crime)
-
+        # self.get_station(crime)
+        crime_police = self.get_crime_police()
+        print(f'{crime_police.head()}')
+        print(f'{crime_police.columns}')
 
     def get_crime(self):
         reader = self.reader
-        reader.context = os.path.join(basedir,'data')
+        reader.context = os.path.join(baseurl,'data')
         reader.fname = 'crime_in_seoul.csv'
         reader.new_file()
         crime = reader.csv_to_dframe()
@@ -71,7 +72,6 @@ class CrimeModel:
             gu_name = [gu for gu in t if gu[-1] == '구'][0]
             gu_names.append(gu_name)
         crime['구별'] = gu_names
-        print('+++++++++++++++++++++')
         
 
         crime.loc[crime['관서명'] == '혜화서', ['구별']] == '종로구'
@@ -83,9 +83,20 @@ class CrimeModel:
 
         print(crime.head())
         reader = self.reader
-        reader.context = os.path.join(basedir,'saved_data')
+        reader.context = os.path.join(baseurl,'saved_data')
         reader.fname = 'crime_police.csv'
         crime.to_csv(reader.new_file())
+
+    def get_crime_police(self):
+        reader = self.reader
+        reader.context = os.path.join(baseurl,'saved_data')
+        reader.fname = 'crime_police.csv'
+        reader.new_file()
+        crime_police = reader.csv_to_dframe()
+        print(f'{crime_police.head()}')
+        return crime_police
+
+
 
 
     
