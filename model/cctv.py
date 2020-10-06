@@ -86,7 +86,7 @@ class CCTV:
         reader.fname = 'cctv_pop.csv'
         cctv_pop.to_csv(reader.new_file())
         
-if __name__ == '__main__':
+if __name__ == '__main__'
     model = CCTV()
     # model.get_cctv()
     # model.get_pop()

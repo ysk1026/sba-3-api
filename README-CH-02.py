@@ -7,4 +7,17 @@
 1957 Perceptron
 1969 MLP
 1974 Backpropagation
+
+함수 : input T, output T State
+
+Cost Function
+Activation Function
+    선형 활성화
+    비선형 활성화
+Identity Function
+최적화 Object Function : 최소화 cost function
+
+학습률 lr : 
+    0.01 너무 크다 -> CF 커진다.
+    0.0001 너무 작다 ->  Epoch가 커진다
 """

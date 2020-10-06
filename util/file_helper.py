@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import os
 import pandas as pd
 import xlrd
+import googlemaps
 
 '''
 pandas version 1.x 이상 endcoding='UTF-8' 불필요
@@ -33,3 +34,6 @@ class FileReader:
     def xls_to_dframe(self, header, usecols) -> object:
         print(f'PANDAS VERSION: {pd.__version__}')
         return pd.read_excel(self.new_file(), header = header, usecols = usecols)
+
+    def create_gmaps(self):
+        return googlemaps.Client(key=')
