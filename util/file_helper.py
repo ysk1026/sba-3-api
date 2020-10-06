@@ -1,26 +1,29 @@
 from dataclasses import dataclass
-import pandas as pd
 import os
+import pandas as pd
 
-"""
-context: /Users/youngseonkim/Documents/SbaProjects/
-fname: /titanic/data
-"""
+
 @dataclass
 class FileReader:
-    
+    # def __init__(self, context, fname, train, test, id, label):
+    #     self._context = context  # _ 1개는 default 접근, _ 2개는 private 접근
+
+    # 3.7부터 간소화되서 dataclass 데코 후, key: value 형식으로 써도 됨 (롬복 형식)
     context : str = ''
     fname: str = ''
     train: object = None
     test: object = None
-    id: str = ''
-    label: str = ''
-    
+    id : str = ''
+    lable : str = ''
+
     def new_file(self) -> str:
-        return os.path.join(self.context, self.fname)
-    
+        return os.path.join(self.context,self.fname)
+
     def csv_to_dframe(self) -> object:
-        file = self.new_file()
-        return pd.read_csv(file, encoding='utf-8', thousands=',')
+        return pd.read_csv(self.new_file(), encoding='UTF-8', thousands=',')
+
+    def xls_to_dframe(self, header, usecols) -> object:
+        print(f"PANDA VERSION : {pd.__version__}")
+        return pd.read_excel(self.new_file(), header = header, usecols = usecols)
     
     
