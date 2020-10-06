@@ -14,12 +14,9 @@ class CCTV:
         print('----------- CCTV & POP -----------')
         cctv = self.get_cctv()
         pop = self.get_pop()
-        print(f"CCTV Null Checker: {cctv['구별'].isnull()}")
-        print(f"POP Null Checker: {pop['구별'].isnull()}")
+        
         print(f'CCTV Header: {cctv.head()}')
         print(f'POP Header: {pop.head()}')
-        pop.drop([26], inplace=True)
-        print(f"POP Null Checker: {pop['구별'].isnull()}")
         
     def get_cctv(self):
         reader = self.reader
@@ -29,6 +26,7 @@ class CCTV:
         cctv = reader.csv_to_dframe()
         cctv.rename(columns = {cctv.columns[0]: '구별'}, inplace = True)
         # print(f'{cctv.head()}')
+        print(f"CCTV Null Checker: {cctv['구별'].isnull()}")
         return cctv
     
     def get_pop(self):
@@ -44,6 +42,8 @@ class CCTV:
             pop.columns[3]: '외국인',
             pop.columns[4]: '고령자'
             }, inplace = True)
+        print(f"POP Null Checker: {pop['구별'].isnull()}")
+        pop.drop([26], inplace=True)
         return pop    
     
 
