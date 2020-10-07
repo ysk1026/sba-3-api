@@ -40,4 +40,4 @@ class FileReader:
         return googlemaps.Client(key='')
     
     def json_load(self):
-        return json.load(open(self.new_file()), encoding='UTF-8')
+        return json.load(open(self.new_file(), encoding='UTF-8'))

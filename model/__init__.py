@@ -8,6 +8,7 @@ if __name__ == '__main__':
     iris = IrisModel()
     # iris.draw_scatter()
     # iris.draw_errors()
-    # iris.draw_adaline_graph()
-    iris.draw_adaline_gd_graph()
+    # iris.plot_decision_regions()
+    iris.draw_adaline_graph()
+    # iris.draw_adaline_gd_graph()
     

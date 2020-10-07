@@ -89,8 +89,9 @@ class Police:
     
     def get_police_norm(self):
         reader = self.reader
-        reader.context = os.path.join(baseurl, 'saved_data')
-        reader.fname = 'police.norm.csv'
+        reader.context = os.path.join(baseurl,'saved_data')
+        reader.fname = 'police_norm.csv'
+        reader.new_file()
         police_norm = reader.csv_to_dframe()
         # print(f'{police_norm.head()}')
         return police_norm

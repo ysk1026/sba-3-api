@@ -42,6 +42,7 @@ class UsUnemployment:
         reader.context = os.path.join(basedir, 'saved_data')
         reader.fname = 'usa.html'
         map.save(reader.new_file())
+        
 if __name__ == '__main__':
     us = UsUnemployment()
     us.show_map()
