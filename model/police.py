@@ -86,6 +86,14 @@ class Police:
         reader.fname = 'police_norm.csv'
         
         police_norm.to_csv(reader.new_file(), sep=',', encoding='UTF-8')
+    
+    def get_police_norm(self):
+        reader = self.reader
+        reader.context = os.path.join(baseurl, 'saved_data')
+        reader.fname = 'police.norm.csv'
+        police_norm = reader.csv_to_dframe()
+        # print(f'{police_norm.head()}')
+        return police_norm
         
 if __name__ == '__main__':
     police = Police()
