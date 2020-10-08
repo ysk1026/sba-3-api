@@ -1,21 +1,10 @@
-import os
-import sys
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-baseurl = os.path.dirname(os.path.abspath(__file__))
 import numpy as np
 import tensorflow as tf 
-from tensorflow import keras
 from collections import deque
 import random
 
 class AiTrader:
-    
-    model : object = None
-    train_images : object = None
-    train_labels : object = None
-    test_images : object = None
-    test_lables : object = None
-    
+
     def __init__(self, state_size, action_space=3, model_name='AITrader'):
         self.state_size = state_size
         self.action_space = action_space
@@ -26,7 +15,8 @@ class AiTrader:
         self.epsilon = 1.0
         self.epsilon_final = 0.01
         self.epsilon_decay = 0.995
-    
+        self.model = self.model_builder()
+
     def model_builder(self):
         model = tf.keras.models.Sequential()
         model.add(tf.keras.layers.Dense(units=32, activation='relu', input_dim=self.state_size))
@@ -34,10 +24,9 @@ class AiTrader:
         model.add(tf.keras.layers.Dense(units=128, activation='relu'))
         model.add(tf.keras.layers.Dense(units=self.action_space, activation='linear'))
         model.compile(loss='mse', optimizer=tf.keras.optimizers.Adam(lr=0.001))
+        return model
         
-        self.model = model
-        
-    def batch_model(self, batch_size):
+    def batch_train(self, batch_size):
         batch = []
         for i in range(len(self.memory) - batch_size + 1, len(self.memory)):
             batch.append(self.memory[i])
@@ -50,14 +39,11 @@ class AiTrader:
             self.model.fit(state, target, epochs=1, verbose=0)
         if self.epsilon > self.epsilon_final:
             self.epsilon *= self.epsilon_decay
-            
+
     def trade(self, state):
         if random.random() <= self.epsilon:
             return random.randrange(self.action_space)
         actions = self.model.predict(state)
         return np.argmax(actions[0])
-        
+
     
-if __name__ == '__main__':
-    api = AiTrader()
-    api.hook()
